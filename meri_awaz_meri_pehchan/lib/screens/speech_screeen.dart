@@ -35,6 +35,54 @@ class _SpeechScreenState extends State<SpeechScreen> {
       });
     }
   }
+  
+  void onListen() async {
+    if (!_isListening) {
+      bool available = await _speech!.initialize(
+        onStatus: (val) => print('onStatus :$val'),
+        onError: (val) => print('onError :$val'),
+      );
+      if (available) {
+        setState(() {
+          _isListening = true;
+        });
+        _speech!.listen(
+            onResult: (val) => setState(() {
+                  _textSpeech = val.recognizedWords;
+                }));
+
+      }
+    } else {
+      setState(() {
+        _isListening = false;
+        _speech!.stop();
+      });
+    }
+  }
+  
+  void onListen() async {
+    if (!_isListening) {
+      bool available = await _speech!.initialize(
+        onStatus: (val) => print('onStatus :$val'),
+        onError: (val) => print('onError :$val'),
+      );
+      if (available) {
+        setState(() {
+          _isListening = true;
+        });
+        _speech!.listen(
+            onResult: (val) => setState(() {
+                  _textSpeech = val.recognizedWords;
+                }));
+
+      }
+    } else {
+      setState(() {
+        _isListening = false;
+        _speech!.stop();
+      });
+    }
+  }
 
   @override
   void initState() {
